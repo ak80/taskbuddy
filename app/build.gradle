@@ -10,7 +10,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
-        applicationId "org.ak80.skeleton"
+        applicationId "org.ak80.taskbuddy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
