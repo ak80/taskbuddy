@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.tasks
+package org.ak80.taskbuddy.ui.tasks
 
 import android.content.Intent
 import android.os.Bundle

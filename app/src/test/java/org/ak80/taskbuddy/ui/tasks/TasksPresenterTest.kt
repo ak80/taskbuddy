@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.tasks
+package org.ak80.taskbuddy.ui.tasks
 
 import io.mockk.MockKAnnotations
 import io.mockk.every

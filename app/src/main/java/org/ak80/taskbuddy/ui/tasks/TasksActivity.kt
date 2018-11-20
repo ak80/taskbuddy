@@ -1,8 +1,7 @@
-package org.ak80.taskbuddy.info
+package org.ak80.taskbuddy.ui.tasks
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.NavUtils
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
@@ -10,29 +9,28 @@ import android.view.MenuItem
 import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
-import org.ak80.taskbuddy.util.ActivityUtils
+import org.ak80.taskbuddy.ui.info.InfoActivity
+import org.ak80.taskbuddy.ui.util.ActivityUtils
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
-
 /**
- * View for showing the info screen
+ * View for showing the main screen with the list of [org.ak80.taskbuddy.model.Task]s
  */
-class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
+class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
 
     @Inject
-    lateinit var infoPresenter: InfoContract.Presenter
+    lateinit var tasksPresenter: TasksPresenter
     @Inject
-    lateinit var infoFragmentProvider: Lazy<InfoFragment>
-    @Inject
-    lateinit var fragment: InfoFragment
+    lateinit var tasksFragmentProvider: Lazy<TasksFragment>
 
     private var drawerLayout: DrawerLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.info_act)
+        setContentView(R.layout.tasks_act)
 
         setupToolbar()
         setupNavDrawer()
@@ -47,8 +45,7 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val ab = supportActionBar
-        ab!!.setTitle(R.string.info_title)
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu)
+        ab!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         ab.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -65,10 +62,10 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.list_navigation_menu_item -> {
-                    NavUtils.navigateUpFromSameTask(this@InfoActivity)
+                    // do nothing, we're already on that screen
                 }
                 R.id.info_navigation_menu_item -> {
-                    // do nothing, we're already on that screen
+                    startActivity(intentFor<InfoActivity>())
                 }
                 else -> {
                     // ignore
@@ -81,7 +78,7 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
     }
 
     private fun setupFragment() {
-        ActivityUtils.loadFragment(R.id.contentFrame, infoFragmentProvider, supportFragmentManager)
+        ActivityUtils.loadFragment(R.id.contentFrame, tasksFragmentProvider, supportFragmentManager)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -97,4 +94,9 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
     private fun openNavigationDrawer() {
         drawerLayout?.openDrawer(GravityCompat.START)
     }
+
+    public override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
 }

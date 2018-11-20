@@ -1,7 +1,7 @@
-package org.ak80.taskbuddy.tasks
+package org.ak80.taskbuddy.ui.tasks
 
-import org.ak80.taskbuddy.BasePresenter
-import org.ak80.taskbuddy.BaseView
+import org.ak80.taskbuddy.ui.BasePresenter
+import org.ak80.taskbuddy.ui.BaseView
 import org.ak80.taskbuddy.model.Task
 
 /**

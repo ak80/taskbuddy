@@ -1,10 +1,10 @@
-package org.ak80.taskbuddy
+package org.ak80.taskbuddy.ui
 
 import android.support.annotation.VisibleForTesting
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import org.ak80.taskbuddy.di.DaggerAppComponent
-import org.ak80.taskbuddy.repository.TaskRepository
+import org.ak80.taskbuddy.persistence.TaskRepository
 import javax.inject.Inject
 
 

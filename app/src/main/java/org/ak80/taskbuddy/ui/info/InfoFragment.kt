@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.info
+package org.ak80.taskbuddy.ui.info
 
 import android.os.Bundle
 import android.view.LayoutInflater

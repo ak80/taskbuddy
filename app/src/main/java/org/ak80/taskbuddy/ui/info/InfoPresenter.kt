@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.info
+package org.ak80.taskbuddy.ui.info
 
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.di.ActivityScoped

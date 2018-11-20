@@ -1,7 +1,7 @@
-package org.ak80.taskbuddy.info
+package org.ak80.taskbuddy.ui.info
 
-import org.ak80.taskbuddy.BasePresenter
-import org.ak80.taskbuddy.BaseView
+import org.ak80.taskbuddy.ui.BasePresenter
+import org.ak80.taskbuddy.ui.BaseView
 
 /**
  * This specifies the contract between the view and the presenter.

@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.tasks
+package org.ak80.taskbuddy.ui.tasks
 
 import org.ak80.taskbuddy.model.Task
 

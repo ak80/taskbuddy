@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.util
+package org.ak80.taskbuddy.ui.util
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

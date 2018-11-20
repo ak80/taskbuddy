@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy
+package org.ak80.taskbuddy.ui
 
 interface BasePresenter<in T> {
 

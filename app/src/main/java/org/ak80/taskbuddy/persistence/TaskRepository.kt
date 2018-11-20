@@ -1,6 +1,6 @@
-package org.ak80.taskbuddy.repository
+package org.ak80.taskbuddy.persistence
 
-import org.ak80.taskbuddy.tasks.TaskGateway
+import org.ak80.taskbuddy.ui.tasks.TaskGateway
 import org.ak80.taskbuddy.model.Task
 import javax.inject.Inject
 import javax.inject.Singleton
