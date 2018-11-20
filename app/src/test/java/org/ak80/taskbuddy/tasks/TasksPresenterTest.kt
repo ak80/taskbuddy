@@ -97,6 +97,20 @@ class TasksPresenterTest {
     }
 
     @Test
+    fun clearAllTaskInRepository_whenClearTasks() {
+        // Given
+        val taskList = listOf(aTask(), aTask(), aTask())
+        taskRepository.answerLoadCallbackWith(taskList)
+        presenter.takeView(view)
+
+        // When
+        presenter.clearTask()
+
+        // Then
+        verify { taskRepository.clearAll() }
+    }
+
+    @Test
     fun loadAllTaskFromRepositoryAndLoadIntoView_whenClearTasks() {
         // Given
         val taskList = listOf(aTask(), aTask(), aTask())

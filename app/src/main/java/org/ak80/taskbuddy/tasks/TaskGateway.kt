@@ -9,4 +9,6 @@ interface TaskGateway {
 
     fun loadTasks(callback: (List<Task>) -> Unit)
 
+    fun clearAll()
+
 }

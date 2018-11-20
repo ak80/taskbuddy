@@ -37,6 +37,7 @@ class TasksPresenter @Inject constructor(private var taskRepository: TaskGateway
     }
 
     override fun clearTask() {
+        taskRepository.clearAll()
         showTasks()
     }
 

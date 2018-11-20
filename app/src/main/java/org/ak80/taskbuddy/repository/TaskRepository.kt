@@ -18,5 +18,7 @@ class TaskRepository @Inject constructor() : TaskGateway {
         callback.invoke(tasks)
     }
 
-
+    override fun clearAll() {
+        tasks.forEach { task -> task.passed=false }
+    }
 }
