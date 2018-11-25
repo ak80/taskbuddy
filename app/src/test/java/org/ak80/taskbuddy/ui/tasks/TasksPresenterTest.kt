@@ -7,7 +7,8 @@ import io.mockk.slot
 import io.mockk.verify
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.aTask
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.gateway.TaskGateway
+import org.ak80.taskbuddy.core.model.Task
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test

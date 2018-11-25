@@ -2,7 +2,7 @@ package org.ak80.taskbuddy.ui.tasks
 
 import org.ak80.taskbuddy.ui.BasePresenter
 import org.ak80.taskbuddy.ui.BaseView
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.model.Task
 
 /**
  * This specifies the contract between the view and the presenter.

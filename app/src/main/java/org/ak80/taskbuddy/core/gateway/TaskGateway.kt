@@ -1,6 +1,6 @@
-package org.ak80.taskbuddy.ui.tasks
+package org.ak80.taskbuddy.core.gateway
 
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.model.Task
 
 /**
  * Gateway for [Task]s

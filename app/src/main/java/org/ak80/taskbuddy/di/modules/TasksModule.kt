@@ -1,10 +1,14 @@
-package org.ak80.taskbuddy.ui.tasks
+package org.ak80.taskbuddy.di.modules
 
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.ak80.taskbuddy.core.gateway.TaskGateway
 import org.ak80.taskbuddy.di.FragmentScoped
 import org.ak80.taskbuddy.persistence.TaskRepository
+import org.ak80.taskbuddy.ui.tasks.TasksContract
+import org.ak80.taskbuddy.ui.tasks.TasksFragment
+import org.ak80.taskbuddy.ui.tasks.TasksPresenter
 
 /**
  * The Dagger module for Tasks

@@ -5,7 +5,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.model.Task
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher

@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.ui
+package org.ak80.taskbuddy.di
 
 import android.support.annotation.VisibleForTesting
 import dagger.android.AndroidInjector

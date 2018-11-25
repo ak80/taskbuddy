@@ -4,7 +4,7 @@
           package="org.ak80.taskbuddy">
 
     <application
-            android:name="org.ak80.taskbuddy.ui.TaskBuddyApplication"
+            android:name="org.ak80.taskbuddy.di.TaskBuddyApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"

@@ -5,7 +5,6 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import org.ak80.taskbuddy.ui.TaskBuddyApplication
 
 import javax.inject.Singleton
 

@@ -3,9 +3,9 @@ package org.ak80.taskbuddy.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import org.ak80.taskbuddy.ui.tasks.TasksActivity
-import org.ak80.taskbuddy.ui.tasks.TasksModule
+import org.ak80.taskbuddy.di.modules.TasksModule
 import org.ak80.taskbuddy.ui.info.InfoActivity
-import org.ak80.taskbuddy.ui.info.InfoModule
+import org.ak80.taskbuddy.di.modules.InfoModule
 
 /**
  * Define Activities here, and refer to their specific module

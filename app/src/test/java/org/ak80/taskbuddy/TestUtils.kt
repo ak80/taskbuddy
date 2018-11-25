@@ -1,7 +1,7 @@
 package org.ak80.taskbuddy
 
 import org.ak80.taskbuddy.Counter.count
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.model.Task
 
 private object Counter {
 

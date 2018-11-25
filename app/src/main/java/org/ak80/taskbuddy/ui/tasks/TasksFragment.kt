@@ -10,7 +10,7 @@ import android.widget.*
 import dagger.android.support.DaggerFragment
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.di.ActivityScoped
-import org.ak80.taskbuddy.model.Task
+import org.ak80.taskbuddy.core.model.Task
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.*

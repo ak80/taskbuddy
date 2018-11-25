@@ -61,6 +61,8 @@ dependencies {
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     testImplementation "org.assertj:assertj-core:$rootProject.assertjVersion"
     testImplementation "io.mockk:mockk:$rootProject.mockkVersion"
+    testImplementation "com.tngtech.archunit:archunit:$rootProject.archunitVersion"
+
 
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$rootProject.androidSupportTestRunnerVersion"
