@@ -70,8 +70,8 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
         info("on result with requestCode=$requestCode, resultCode=$resultCode from intent=$data")
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater!!.inflate(R.layout.tasks_frag, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.tasks_frag, container, false)
         setupTasksView(root)
 
         setupFloatingActionButton()
@@ -91,7 +91,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
     }
 
     private fun setupFloatingActionButton() {
-        val fab = activity.findViewById<FloatingActionButton>(R.id.fab_add_task)
+        val fab = activity!!.findViewById<FloatingActionButton>(R.id.fab_add_task)
         fab.setImageResource(R.drawable.ic_add)
         fab.setOnClickListener { presenter.addNewTask() }
     }

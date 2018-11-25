@@ -22,8 +22,9 @@ class InfoFragment @Inject constructor() : DaggerFragment(), InfoContract.View {
 
     private var infoView: TextView? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater!!.inflate(R.layout.info_frag, container, false)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.info_frag, container, false)
         infoView = root.findViewById(R.id.info)
 
         presenter.takeView(this)
