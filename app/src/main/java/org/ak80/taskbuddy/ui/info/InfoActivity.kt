@@ -10,9 +10,11 @@ import android.view.MenuItem
 import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
+import org.ak80.taskbuddy.ui.missions.MissionsActivity
 import org.ak80.taskbuddy.ui.util.ActivityUtils
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
 
@@ -47,7 +49,7 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val ab = supportActionBar
-        ab!!.setTitle(R.string.info_title)
+        ab!!.setTitle(R.string.title_list_info)
         ab.setHomeAsUpIndicator(R.drawable.ic_menu)
         ab.setDisplayHomeAsUpEnabled(true)
     }
@@ -64,10 +66,13 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
     private fun setupDrawerContent(navigationView: NavigationView) {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.list_navigation_menu_item -> {
+                R.id.navigation_menu_item_missions -> {
+                    startActivity(intentFor<MissionsActivity>())
+                }
+                R.id.navigation_menu_item_tasks -> {
                     NavUtils.navigateUpFromSameTask(this@InfoActivity)
                 }
-                R.id.info_navigation_menu_item -> {
+                R.id.navigation_menu_item_info -> {
                     // do nothing, we're already on that screen
                 }
                 else -> {

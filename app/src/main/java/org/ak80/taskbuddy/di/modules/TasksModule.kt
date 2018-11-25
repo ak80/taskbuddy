@@ -24,6 +24,6 @@ abstract class TasksModule {
     internal abstract fun tasksPresenter(presenter: TasksPresenter): TasksContract.Presenter
 
     @Binds
-    internal abstract fun tasksRepository(taskRepository: TaskRepository): TaskGateway
+    internal abstract fun taskRepository(taskRepository: TaskRepository): TaskGateway
 
 }

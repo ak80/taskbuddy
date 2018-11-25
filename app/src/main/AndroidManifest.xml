@@ -19,6 +19,11 @@
             </intent-filter>
         </activity>
         <activity
+                android:name="org.ak80.taskbuddy.ui.missions.MissionsActivity"
+                android:parentActivityName="org.ak80.taskbuddy.ui.tasks.TasksActivity"
+                tools:ignore="UnusedAttribute">
+        </activity>
+        <activity
                 android:name="org.ak80.taskbuddy.ui.info.InfoActivity"
                 android:parentActivityName="org.ak80.taskbuddy.ui.tasks.TasksActivity"
                 tools:ignore="UnusedAttribute">

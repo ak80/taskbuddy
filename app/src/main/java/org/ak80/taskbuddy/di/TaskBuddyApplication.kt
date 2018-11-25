@@ -3,7 +3,6 @@ package org.ak80.taskbuddy.di
 import android.support.annotation.VisibleForTesting
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import org.ak80.taskbuddy.di.DaggerAppComponent
 import org.ak80.taskbuddy.persistence.TaskRepository
 import javax.inject.Inject
 

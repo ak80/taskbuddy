@@ -2,8 +2,8 @@ package org.ak80.taskbuddy.ui.tasks
 
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.core.gateway.TaskGateway
-import org.ak80.taskbuddy.di.ActivityScoped
 import org.ak80.taskbuddy.core.model.Task
+import org.ak80.taskbuddy.di.ActivityScoped
 import javax.inject.Inject
 
 /**

@@ -1,0 +1,187 @@
+package org.ak80.taskbuddy.ui.missions
+
+import android.content.Intent
+import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
+import android.view.*
+import android.widget.BaseAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
+import android.widget.TextView
+import dagger.android.support.DaggerFragment
+import org.ak80.taskbuddy.R
+import org.ak80.taskbuddy.core.model.Mission
+import org.ak80.taskbuddy.di.ActivityScoped
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import java.util.*
+import javax.inject.Inject
+
+/**
+ * Display list of items
+ */
+@ActivityScoped
+class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContract.View, AnkoLogger {
+
+    @Inject
+    lateinit var presenter: MissionsContract.Presenter
+
+    private var listAdapter: MissionAdapter? = null
+
+    private var missionsView: LinearLayout? = null
+
+    private var missionsViewLabel: TextView? = null
+
+    private var missionsListener: MissionsListener = object : MissionsListener {
+
+        override fun onMissionClick(clickedMission: Mission) {
+            showMessage("clicked on $clickedMission")
+        }
+
+        override fun onMissionLongClick(clickedMission: Mission) {
+            showMessage("long clicked on $clickedMission")
+        }
+
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        listAdapter = MissionAdapter(ArrayList(0), missionsListener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.takeView(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dropView()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        info("on result with requestCode=$requestCode, resultCode=$resultCode from intent=$data")
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.missions_frag, container, false)
+        setupMissionsView(root)
+
+        setupFloatingActionButton()
+        setHasOptionsMenu(true)
+
+        return root
+    }
+
+
+    private fun setupMissionsView(root: View) {
+        missionsView = root.findViewById(R.id.missions_view)
+        missionsViewLabel = missionsView!!.findViewById(R.id.missions_list_label)
+        missionsViewLabel!!.setText(R.string.title_list_mission)
+        val listView = root.findViewById<ListView>(R.id.missions_list)
+        listView.adapter = listAdapter
+
+    }
+
+    private fun setupFloatingActionButton() {
+        val fab = activity!!.findViewById<FloatingActionButton>(R.id.fab_add_mission)
+        fab.setImageResource(R.drawable.ic_add)
+        fab.setOnClickListener { presenter.addNewMission() }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.mission_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.menu_about -> presenter.about()
+        }
+        return true
+    }
+
+    override fun showMissions(missions: List<Mission>) {
+        listAdapter!!.replaceData(missions)
+    }
+
+    override fun showAbout(id: Int) {
+        showMessage(getString(id))
+    }
+
+    override fun showMessage(id: Int) {
+        showMessage(getString(id))
+    }
+
+    private fun showMessage(message: String) {
+        Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    interface MissionsListener {
+
+        fun onMissionClick(clickedMission: Mission)
+
+        fun onMissionLongClick(clickedMission: Mission)
+
+    }
+
+    private class MissionAdapter(missions: List<Mission>, private val missionsListener: MissionsListener) :
+        BaseAdapter() {
+
+        private var missions: List<Mission> = mutableListOf()
+
+        init {
+            setList(missions)
+        }
+
+        fun replaceData(missions: List<Mission>) {
+            setList(missions)
+            notifyDataSetChanged()
+        }
+
+        private fun setList(missions: List<Mission>) {
+            this.missions = missions
+        }
+
+        override fun getCount(): Int {
+            return missions.size
+        }
+
+        override fun getItem(i: Int): Mission {
+            return missions[i]
+        }
+
+        override fun getItemId(i: Int): Long {
+            return i.toLong()
+        }
+
+        override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
+            val rowView: View? = getView(view, viewGroup)
+
+            val mission = getItem(i)
+
+            val titleTV = rowView!!.findViewById<TextView>(R.id.title)
+            titleTV.text = mission.title
+
+            rowView.setOnClickListener { missionsListener.onMissionClick(mission) }
+
+            rowView.setOnLongClickListener {
+                missionsListener.onMissionLongClick(mission)
+                true
+            }
+            return rowView
+        }
+
+        private fun getView(view: View?, viewGroup: ViewGroup): View? {
+            var rowView: View? = view
+            if (rowView == null) {
+                val inflater = LayoutInflater.from(viewGroup.context)
+                rowView = inflater.inflate(R.layout.mission_item, viewGroup, false)
+            }
+            return rowView
+        }
+    }
+
+}

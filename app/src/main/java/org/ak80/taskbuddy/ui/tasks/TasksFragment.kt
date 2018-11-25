@@ -9,8 +9,8 @@ import android.view.*
 import android.widget.*
 import dagger.android.support.DaggerFragment
 import org.ak80.taskbuddy.R
-import org.ak80.taskbuddy.di.ActivityScoped
 import org.ak80.taskbuddy.core.model.Task
+import org.ak80.taskbuddy.di.ActivityScoped
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.*
@@ -84,7 +84,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
     private fun setupTasksView(root: View) {
         tasksView = root.findViewById(R.id.tasks_view)
         tasksViewLabel = tasksView!!.findViewById(R.id.tasks_list_label)
-        tasksViewLabel!!.setText(R.string.list_title)
+        tasksViewLabel!!.setText(R.string.title_list_tasks)
         val listView = root.findViewById<ListView>(R.id.tasks_list)
         listView.adapter = listAdapter
 

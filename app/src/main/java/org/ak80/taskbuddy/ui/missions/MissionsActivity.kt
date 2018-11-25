@@ -1,4 +1,4 @@
-package org.ak80.taskbuddy.ui.tasks
+package org.ak80.taskbuddy.ui.missions
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -10,7 +10,7 @@ import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.ui.info.InfoActivity
-import org.ak80.taskbuddy.ui.missions.MissionsActivity
+import org.ak80.taskbuddy.ui.tasks.TasksActivity
 import org.ak80.taskbuddy.ui.util.ActivityUtils
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -18,20 +18,20 @@ import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
 /**
- * View for showing the main screen with the list of [org.ak80.taskbuddy.core.model.Task]s
+ * View for showing the main screen with the list of [org.ak80.taskbuddy.core.model.Mission]s
  */
-class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
+class MissionsActivity : DaggerAppCompatActivity(), AnkoLogger {
 
     @Inject
-    lateinit var tasksPresenter: TasksPresenter
+    lateinit var missionsPresenter: MissionsPresenter
     @Inject
-    lateinit var tasksFragmentProvider: Lazy<TasksFragment>
+    lateinit var missionsFragmentProvider: Lazy<MissionsFragment>
 
     private var drawerLayout: DrawerLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tasks_act)
+        setContentView(R.layout.missions_act)
 
         setupToolbar()
         setupNavDrawer()
@@ -63,10 +63,10 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navigation_menu_item_missions -> {
-                    startActivity(intentFor<MissionsActivity>())
+                    // do nothing, we're already on that screen
                 }
                 R.id.navigation_menu_item_tasks -> {
-                    // do nothing, we're already on that screen
+                    startActivity(intentFor<TasksActivity>())
                 }
                 R.id.navigation_menu_item_info -> {
                     startActivity(intentFor<InfoActivity>())
@@ -82,7 +82,7 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
     }
 
     private fun setupFragment() {
-        ActivityUtils.loadFragment(R.id.contentFrame, tasksFragmentProvider, supportFragmentManager)
+        ActivityUtils.loadFragment(R.id.contentFrame, missionsFragmentProvider, supportFragmentManager)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

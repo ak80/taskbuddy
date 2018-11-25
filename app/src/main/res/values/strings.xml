@@ -3,8 +3,9 @@
     <string name="app_name">Task Buddy</string>
     <string name="about">The Task Buddy App helps you to complete daily tasks</string>
     <string name="navigation_view_header_title">Task Buddy</string>
-    <string name="list_title">Task List</string>
-    <string name="info_title">Info</string>
+    <string name="title_list_mission">Mission List</string>
+    <string name="title_list_tasks">Task List</string>
+    <string name="title_list_info">Info</string>
     <string name="menu_clear">Clear</string>
     <string name="menu_about">About</string>
     <string name="task_marked_complete">Task marked complete</string>
