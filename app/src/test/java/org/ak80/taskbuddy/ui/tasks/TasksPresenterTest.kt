@@ -9,6 +9,8 @@ import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.aTask
 import org.ak80.taskbuddy.core.gateway.TaskGateway
 import org.ak80.taskbuddy.core.model.Task
+import org.ak80.taskbuddy.listOf
+import org.ak80.taskbuddy.some
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -32,7 +34,7 @@ class TasksPresenterTest {
     @Test
     fun loadAllTasksFromRepositoryAndLoadIntoView_whenTakeView() {
         // Given
-        val taskList = listOf(aTask(), aTask(), aTask())
+        val taskList = listOf(some()) { aTask() }
         taskRepository.answerLoadCallbackWith(taskList)
 
         // When
@@ -98,28 +100,28 @@ class TasksPresenterTest {
     }
 
     @Test
-    fun clearAllTaskInRepository_whenClearTasks() {
+    fun deleteAllTaskInRepository_whenClearTasks() {
         // Given
-        val taskList = listOf(aTask(), aTask(), aTask())
+        val taskList = listOf(some()) { aTask() }
         taskRepository.answerLoadCallbackWith(taskList)
         presenter.takeView(view)
 
         // When
-        presenter.clearTask()
+        presenter.clearTasks()
 
         // Then
-        verify { taskRepository.clearAll() }
+        verify { taskRepository.deleteAll() }
     }
 
     @Test
     fun loadAllTaskFromRepositoryAndLoadIntoView_whenClearTasks() {
         // Given
-        val taskList = listOf(aTask(), aTask(), aTask())
+        val taskList = listOf(some()) { aTask() }
         taskRepository.answerLoadCallbackWith(taskList)
         presenter.takeView(view)
 
         // When
-        presenter.clearTask()
+        presenter.clearTasks()
 
         // Then
         verify(exactly = 2) { view.showTasks(taskList) }
@@ -128,7 +130,7 @@ class TasksPresenterTest {
     @Test
     fun showAboutInView_whenAbout() {
         // Given
-        val taskList = listOf(aTask(), aTask(), aTask())
+        val taskList = listOf(some()) { aTask() }
         taskRepository.answerLoadCallbackWith(taskList)
         presenter.takeView(view)
 
@@ -142,7 +144,7 @@ class TasksPresenterTest {
     @Test
     fun showMessageInView_whenAddNewTask() {
         // Given
-        val taskList = listOf(aTask(), aTask(), aTask())
+        val taskList = listOf(some()) { aTask() }
         taskRepository.answerLoadCallbackWith(taskList)
         presenter.takeView(view)
 
@@ -151,6 +153,22 @@ class TasksPresenterTest {
 
         // Then
         verify { view.showMessage(R.string.add_new_task) }
+    }
+
+    @Test
+    fun doNotShowTasksAgain_whenDropView() {
+        // Given
+        val taskList = listOf(some()) { aTask() }
+        taskRepository.answerLoadCallbackWith(taskList)
+        presenter.takeView(view)
+
+        // When
+        presenter.dropView()
+        presenter.showTasks()
+
+
+        // Then
+        verify { view.showTasks(taskList) }
     }
 
     private fun TaskGateway.answerLoadCallbackWith(taskList: List<Task>) {

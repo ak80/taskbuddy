@@ -8,11 +8,17 @@ import javax.inject.Singleton
 @Singleton
 class TaskRepository @Inject constructor() : TaskGateway {
 
+    private var taskList: MutableList<Task> = tasks.toMutableList()
+
     override fun loadTasks(callback: (List<Task>) -> Unit) {
-        callback.invoke(tasks)
+        callback.invoke(taskList)
     }
 
-    override fun clearAll() {
-        tasks.forEach { task -> task.passed = false }
+    override fun addTask(task: Task) {
+        taskList.add(task)
+    }
+
+    override fun deleteAll() {
+        taskList.clear()
     }
 }

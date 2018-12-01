@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import android.widget.BaseAdapter
 import android.widget.LinearLayout
@@ -32,6 +33,8 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
     private var missionsView: LinearLayout? = null
 
     private var missionsViewLabel: TextView? = null
+
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     private var missionsListener: MissionsListener = object : MissionsListener {
 
@@ -71,6 +74,7 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
 
         setupFloatingActionButton()
         setHasOptionsMenu(true)
+        setSwipeToRefresh(root)
 
         return root
     }
@@ -105,6 +109,7 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
 
     override fun showMissions(missions: List<Mission>) {
         listAdapter!!.replaceData(missions)
+        swipeRefreshLayout!!.isRefreshing = false
     }
 
     override fun showAbout(id: Int) {
@@ -117,6 +122,11 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
 
     private fun showMessage(message: String) {
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun setSwipeToRefresh(root: View) {
+        swipeRefreshLayout = root.findViewById<View>(R.id.refresh_layout_missions) as SwipeRefreshLayout
+        swipeRefreshLayout!!.setOnRefreshListener { presenter.showMissions() }
     }
 
     interface MissionsListener {

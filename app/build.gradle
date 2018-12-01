@@ -21,6 +21,9 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -29,6 +32,16 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
+    }
+
+    sourceSets {
+        final String SHARED_TEST_DIR = 'src/sharedTest/java'
+        test {
+            java.srcDirs += SHARED_TEST_DIR
+        }
+        androidTest {
+            java.srcDirs += SHARED_TEST_DIR
+        }
     }
 }
 
@@ -62,7 +75,6 @@ dependencies {
     testImplementation "org.assertj:assertj-core:$rootProject.assertjVersion"
     testImplementation "io.mockk:mockk:$rootProject.mockkVersion"
     testImplementation "com.tngtech.archunit:archunit:$rootProject.archunitVersion"
-
 
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$rootProject.androidSupportTestRunnerVersion"

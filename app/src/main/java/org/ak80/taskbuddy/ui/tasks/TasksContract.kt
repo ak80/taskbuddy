@@ -31,7 +31,7 @@ interface TasksContract {
 
         fun activateTask(activeTask: Task)
 
-        fun clearTask()
+        fun clearTasks()
 
         fun about()
 

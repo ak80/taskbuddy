@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import android.widget.*
 import dagger.android.support.DaggerFragment
@@ -30,6 +31,8 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
     private var tasksView: LinearLayout? = null
 
     private var tasksViewLabel: TextView? = null
+
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     private var taskListener: TasksListener = object : TasksListener {
 
@@ -76,6 +79,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
         setupFloatingActionButton()
         setHasOptionsMenu(true)
+        setSwipeToRefresh(root)
 
         return root
     }
@@ -103,7 +107,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.menu_clear -> presenter.clearTask()
+            R.id.menu_clear -> presenter.clearTasks()
             R.id.menu_about -> presenter.about()
         }
         return true
@@ -131,6 +135,11 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
     private fun showMessage(message: String) {
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun setSwipeToRefresh(root: View) {
+        swipeRefreshLayout = root.findViewById<View>(R.id.refresh_layout_tasks) as SwipeRefreshLayout
+        swipeRefreshLayout!!.setOnRefreshListener { presenter.showTasks() }
     }
 
     interface TasksListener {
