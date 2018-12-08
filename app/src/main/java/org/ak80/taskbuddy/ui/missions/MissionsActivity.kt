@@ -10,12 +10,13 @@ import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.ui.info.InfoActivity
-import org.ak80.taskbuddy.ui.tasks.TasksActivity
-import org.ak80.taskbuddy.ui.util.ActivityUtils
+import org.ak80.taskbuddy.ui.util.ActivityUtils.addFragment
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 import javax.inject.Inject
+
+const val MISSION_ID = "missionId"
 
 /**
  * View for showing the main screen with the list of [org.ak80.taskbuddy.core.model.Mission]s
@@ -45,9 +46,11 @@ class MissionsActivity : DaggerAppCompatActivity(), AnkoLogger {
     private fun setupToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val ab = supportActionBar
-        ab!!.setHomeAsUpIndicator(R.drawable.ic_menu)
-        ab.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.run {
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setDisplayHomeAsUpEnabled(true)
+        }
+
     }
 
     private fun setupNavDrawer() {
@@ -65,9 +68,6 @@ class MissionsActivity : DaggerAppCompatActivity(), AnkoLogger {
                 R.id.navigation_menu_item_missions -> {
                     // do nothing, we're already on that screen
                 }
-                R.id.navigation_menu_item_tasks -> {
-                    startActivity(intentFor<TasksActivity>())
-                }
                 R.id.navigation_menu_item_info -> {
                     startActivity(intentFor<InfoActivity>())
                 }
@@ -82,7 +82,7 @@ class MissionsActivity : DaggerAppCompatActivity(), AnkoLogger {
     }
 
     private fun setupFragment() {
-        ActivityUtils.loadFragment(R.id.contentFrame, missionsFragmentProvider, supportFragmentManager)
+        addFragment(missionsFragmentProvider.get(), R.id.contentFrame)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

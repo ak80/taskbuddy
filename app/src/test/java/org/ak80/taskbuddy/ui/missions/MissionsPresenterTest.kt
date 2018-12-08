@@ -58,7 +58,7 @@ class MissionsPresenterTest {
     }
 
     @Test
-    fun showMessageInView_whenAddNewTask() {
+    fun showAddMissionInView_whenAddNewTMission() {
         // Given
         val missionList = listOf(some()) { aMission() }
         missionRepository.answerLoadCallbackWith(missionList)
@@ -68,7 +68,7 @@ class MissionsPresenterTest {
         presenter.addNewMission()
 
         // Then
-        verify { view.showMessage(R.string.add_new_task) }
+        verify { view.showAddEditMission() }
     }
 
     @Test

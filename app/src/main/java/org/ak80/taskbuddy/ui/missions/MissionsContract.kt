@@ -17,6 +17,8 @@ interface MissionsContract {
 
         fun showMessage(id: Int)
 
+        fun showAddMission()
+
     }
 
     interface Presenter : BasePresenter<View> {
@@ -26,6 +28,8 @@ interface MissionsContract {
         fun about()
 
         fun addNewMission()
+
+        fun clearMissions()
 
     }
 }

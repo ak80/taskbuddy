@@ -1,34 +1,27 @@
 package org.ak80.taskbuddy.ui.util
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import dagger.Lazy
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.AppCompatActivity
 
 /**
  * Provides methods to help Activities load their UI.
  */
 object ActivityUtils {
 
-    /**
-     * Load fragment by `fragmentId` from the `supportFragmentManager` or get it from the `provider`
-     */
-    fun loadFragment(fragmentId: Int, provider: Lazy<out Fragment>, supportFragmentManager: FragmentManager) {
-        var fragment: Fragment? = supportFragmentManager.findFragmentById(fragmentId)
-        if (fragment == null) {
-            fragment = provider.get()
-            ActivityUtils.addFragmentToActivity(supportFragmentManager, fragment, fragmentId)
-        }
-
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+        beginTransaction().func().commit()
     }
 
-    /**
-     * The `fragment` is added to the container view with id `frameId`. The operation is
-     * performed by the `fragmentManager`.
-     */
-    private fun addFragmentToActivity(fragmentManager: FragmentManager, fragment: Fragment, frameId: Int) {
-        val transaction = fragmentManager.beginTransaction()
-        transaction.add(frameId, fragment)
-        transaction.commit()
+    fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int, bundle: Bundle = Bundle()) {
+        fragment.arguments = bundle
+        supportFragmentManager.inTransaction { add(frameId, fragment) }
+    }
+
+    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
+        supportFragmentManager.inTransaction { replace(frameId, fragment) }
     }
 
 }

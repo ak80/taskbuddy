@@ -31,7 +31,11 @@ class MissionsPresenter @Inject constructor(private var missionGateway: MissionG
     }
 
     override fun addNewMission() {
-        missionsView?.showMessage(R.string.add_new_task)
+        missionsView?.showAddMission()
     }
 
+    override fun clearMissions() {
+        missionGateway.clearPassed()
+        showMissions()
+    }
 }

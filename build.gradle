@@ -38,6 +38,7 @@ ext {
     ankoVersion = '0.10.8'
     daggerVersion = '2.13'
     // see https://github.com/google/dagger/issues/1339#issuecomment-440667546 which does not work for us
+    guavaVersion = '23.0'
 
     // test dependencies
     junitVersion = '4.12'
@@ -46,8 +47,8 @@ ext {
     archunitVersion = '0.9.3'
 
     //Android test
-    androidSupportTestRunnerVersion = '1.0.2'
-    androidSupportTestRulesVersion = '0.5'
-    androidSupportEspressoVersion = '3.0.2'
+    androidTestRunnerVersion = '1.0.2'
+    androidTestRulesVersion = '0.5'
+    androidEspressoVersion = '3.0.2'
     androidSupportAnnotationsVersion = '25.1.0'
 }

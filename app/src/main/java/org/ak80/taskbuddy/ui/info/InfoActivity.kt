@@ -2,7 +2,6 @@ package org.ak80.taskbuddy.ui.info
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.NavUtils
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
@@ -11,7 +10,7 @@ import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.ui.missions.MissionsActivity
-import org.ak80.taskbuddy.ui.util.ActivityUtils
+import org.ak80.taskbuddy.ui.util.ActivityUtils.addFragment
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
@@ -69,9 +68,6 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
                 R.id.navigation_menu_item_missions -> {
                     startActivity(intentFor<MissionsActivity>())
                 }
-                R.id.navigation_menu_item_tasks -> {
-                    NavUtils.navigateUpFromSameTask(this@InfoActivity)
-                }
                 R.id.navigation_menu_item_info -> {
                     // do nothing, we're already on that screen
                 }
@@ -86,7 +82,7 @@ class InfoActivity : DaggerAppCompatActivity(), AnkoLogger {
     }
 
     private fun setupFragment() {
-        ActivityUtils.loadFragment(R.id.contentFrame, infoFragmentProvider, supportFragmentManager)
+        addFragment(infoFragmentProvider.get(), R.id.contentFrame)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

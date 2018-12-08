@@ -7,10 +7,19 @@ import org.ak80.taskbuddy.core.model.Task
  */
 interface TaskGateway {
 
-    fun loadTasks(callback: (List<Task>) -> Unit)
+    fun loadTasks(missionId: Int, callback: TaskGatewayCallback)
 
-    fun addTask(task: Task)
+    fun clearPassed(missionId: Int)
 
-    fun deleteAll()
+    fun saveTask(completedTask: Task)
+
+}
+
+interface TaskGatewayCallback {
+
+
+    fun callbackTasks(tasks: List<Task>)
+
+    fun callbackTasksFailed()
 
 }

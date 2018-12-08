@@ -2,9 +2,11 @@ package org.ak80.taskbuddy.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.ak80.taskbuddy.di.modules.AddEditMissionModule
 import org.ak80.taskbuddy.di.modules.InfoModule
 import org.ak80.taskbuddy.di.modules.MissionsModule
 import org.ak80.taskbuddy.di.modules.TasksModule
+import org.ak80.taskbuddy.ui.addeditmission.AddEditMissionActivity
 import org.ak80.taskbuddy.ui.info.InfoActivity
 import org.ak80.taskbuddy.ui.missions.MissionsActivity
 import org.ak80.taskbuddy.ui.tasks.TasksActivity
@@ -18,6 +20,11 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MissionsModule::class])
     internal abstract fun missionsActivity(): MissionsActivity
+
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [AddEditMissionModule::class, AddEditMissionModule.Static::class])
+    internal abstract fun addEditMissionsActivity(): AddEditMissionActivity
 
 
     @ActivityScoped

@@ -12,6 +12,7 @@ import dagger.android.support.DaggerFragment
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.core.model.Task
 import org.ak80.taskbuddy.di.ActivityScoped
+import org.ak80.taskbuddy.ui.missions.MISSION_ID
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.*
@@ -33,6 +34,8 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
     private var tasksViewLabel: TextView? = null
 
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
+
+    private var missionId = -1
 
     private var taskListener: TasksListener = object : TasksListener {
 
@@ -62,6 +65,9 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
+
+        arguments?.getInt(MISSION_ID)?.let { missionId = it }
+        presenter.showTasks(missionId)
     }
 
     override fun onDestroy() {
@@ -139,7 +145,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
     private fun setSwipeToRefresh(root: View) {
         swipeRefreshLayout = root.findViewById<View>(R.id.refresh_layout_tasks) as SwipeRefreshLayout
-        swipeRefreshLayout!!.setOnRefreshListener { presenter.showTasks() }
+        swipeRefreshLayout!!.setOnRefreshListener { presenter.showTasks(missionId) }
     }
 
     interface TasksListener {
@@ -206,7 +212,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
         private fun setOnClickListenerForCheckBox(completeCB: CheckBox, task: Task) {
             completeCB.setOnClickListener {
-                if (!task.passed) {
+                if (!task.completed) {
                     tasksListener.onCompleteTaskClick(task)
                 } else {
                     tasksListener.onActivateTaskClick(task)
@@ -215,8 +221,8 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
         }
 
         private fun activateCheckBoxInView(completeCB: CheckBox, task: Task, rowView: View, viewGroup: ViewGroup) {
-            completeCB.isChecked = task.passed
-            if (task.passed) {
+            completeCB.isChecked = task.completed
+            if (task.completed) {
                 rowView.background = ResourcesCompat.getDrawable(
                     viewGroup.context.resources,
                     R.drawable.list_completed_touch_feedback,

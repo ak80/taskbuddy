@@ -3,4 +3,10 @@ package org.ak80.taskbuddy.core.model
 /**
  * A Mission is a collection of Tasks
  */
-data class Mission(val title: String, val tasks: List<Task>)
+data class Mission(val id: Int, val title: String, val tasks: List<Task> = listOf()) {
+
+    fun getCompletedTasks() = tasks.filter { task -> task.completed }.count()
+
+    fun getTotalTasks() = tasks.size
+
+}

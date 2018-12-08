@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="org.ak80.taskbuddy.ui.tasks.TasksActivity">
+        <activity android:name="org.ak80.taskbuddy.ui.missions.MissionsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,15 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="org.ak80.taskbuddy.ui.missions.MissionsActivity"
-                android:parentActivityName="org.ak80.taskbuddy.ui.tasks.TasksActivity"
+                android:name="org.ak80.taskbuddy.ui.tasks.TasksActivity"
+                android:parentActivityName="org.ak80.taskbuddy.ui.missions.MissionsActivity"
                 tools:ignore="UnusedAttribute">
         </activity>
         <activity
                 android:name="org.ak80.taskbuddy.ui.info.InfoActivity"
-                android:parentActivityName="org.ak80.taskbuddy.ui.tasks.TasksActivity"
+                android:parentActivityName="org.ak80.taskbuddy.ui.missions.MissionsActivity"
                 tools:ignore="UnusedAttribute">
         </activity>
+        <activity android:name=".ui.addeditmission.AddEditMissionActivity"/>
     </application>
 
 </manifest>

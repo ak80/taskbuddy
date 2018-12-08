@@ -42,6 +42,6 @@ class InfoFragment @Inject constructor() : DaggerFragment(), InfoContract.View {
     }
 
     override fun setInfoText(id: Int) {
-        infoView!!.text = getString(id)
+        infoView?.text = getString(id)
     }
 }

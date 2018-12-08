@@ -13,4 +13,9 @@
     <string name="add_new_task">clicked add button</string>
     <string name="info_text">This is the Task Buddy App</string>
     <string name="contentDescriptionLogo">logo</string>
+    <string name="add_mission">New Mission</string>
+    <string name="edit_mission">Edit Mission</string>
+    <string name="title_hint">Title</string>
+    <string name="description_hint">Description</string>
+    <string name="load_tasks_failed">Tasks could not be load</string>
 </resources>

@@ -3,13 +3,18 @@ package org.ak80.taskbuddy.ui.missions
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.swipeDown
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
-import org.ak80.taskbuddy.*
+import org.ak80.taskbuddy.AcceptanceTest
+import org.ak80.taskbuddy.R
+import org.ak80.taskbuddy.aMission
 import org.ak80.taskbuddy.core.model.Mission
 import org.ak80.taskbuddy.di.TaskBuddyApplication
+import org.ak80.taskbuddy.listOf
 import org.ak80.taskbuddy.persistence.MissionRepository
+import org.ak80.taskbuddy.ui.utils.refreshView
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.core.Is.`is`
@@ -20,6 +25,17 @@ class MissionsScreenTest : AcceptanceTest<MissionsActivity>(MissionsActivity::cl
 
     var missionRepository: MissionRepository =
         (InstrumentationRegistry.getTargetContext().applicationContext as TaskBuddyApplication).getMissionRepository()
+
+    @Test
+    fun clickAddMissionButton_opensAddMissionUi() {
+        // Click on the add mission button
+        onView(withId(R.id.fab_add_mission)).perform(click())
+
+        // Check if the add task screen is displayed
+        onView(withId(R.id.add_mission_title)).check(matches(isDisplayed()))
+    }
+
+    // TODO more tests, see
 
     @Test
     fun start_showsMissionsView() {

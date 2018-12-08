@@ -11,6 +11,6 @@ interface MissionGateway {
 
     fun addMission(mission: Mission)
 
-    fun deleteAll()
+    fun clearPassed()
 
 }

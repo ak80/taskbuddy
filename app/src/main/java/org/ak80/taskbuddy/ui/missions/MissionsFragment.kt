@@ -14,8 +14,12 @@ import dagger.android.support.DaggerFragment
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.core.model.Mission
 import org.ak80.taskbuddy.di.ActivityScoped
+import org.ak80.taskbuddy.ui.addeditmission.AddEditMissionActivity
+import org.ak80.taskbuddy.ui.addeditmission.REQUEST_ADD_MISSION
+import org.ak80.taskbuddy.ui.tasks.TasksActivity
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.support.v4.intentFor
 import java.util.*
 import javax.inject.Inject
 
@@ -39,7 +43,7 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
     private var missionsListener: MissionsListener = object : MissionsListener {
 
         override fun onMissionClick(clickedMission: Mission) {
-            showMessage("clicked on $clickedMission")
+            startActivity(intentFor<TasksActivity>(MISSION_ID to clickedMission.id))
         }
 
         override fun onMissionLongClick(clickedMission: Mission) {
@@ -102,6 +106,7 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
+            R.id.menu_clear -> presenter.clearMissions()
             R.id.menu_about -> presenter.about()
         }
         return true
@@ -127,6 +132,11 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
     private fun setSwipeToRefresh(root: View) {
         swipeRefreshLayout = root.findViewById<View>(R.id.refresh_layout_missions) as SwipeRefreshLayout
         swipeRefreshLayout!!.setOnRefreshListener { presenter.showMissions() }
+    }
+
+    override fun showAddMission() {
+        // TODO TEST click fab start new activity
+        startActivityForResult(intentFor<AddEditMissionActivity>(), REQUEST_ADD_MISSION)
     }
 
     interface MissionsListener {
@@ -172,8 +182,11 @@ class MissionsFragment @Inject constructor() : DaggerFragment(), MissionsContrac
 
             val mission = getItem(i)
 
-            val titleTV = rowView!!.findViewById<TextView>(R.id.title)
-            titleTV.text = mission.title
+            val title = rowView!!.findViewById<TextView>(R.id.title)
+            title.text = mission.title
+
+            val progress = rowView!!.findViewById<TextView>(R.id.progress)
+            progress.text = "${mission.getCompletedTasks()} / ${mission.getTotalTasks()}"
 
             rowView.setOnClickListener { missionsListener.onMissionClick(mission) }
 

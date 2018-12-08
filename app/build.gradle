@@ -55,13 +55,16 @@ dependencies {
     // App's dependencies, including test
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
-    implementation "org.jetbrains.anko:anko-commons:$rootProject.ankoVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.androidConstraintLayoutVersion"
+    implementation "org.jetbrains.anko:anko-commons:$rootProject.ankoVersion"
+    implementation "org.jetbrains.anko:anko-support-v4-commons:$rootProject.ankoVersion"
+    implementation "org.jetbrains.anko:anko-sqlite:$rootProject.ankoVersion"
+    implementation "com.google.guava:guava:$rootProject.guavaVersion"
 
     // Dagger dependencies
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
@@ -77,10 +80,11 @@ dependencies {
     testImplementation "com.tngtech.archunit:archunit:$rootProject.archunitVersion"
 
     // Android Testing Support Library's runner and rules
-    androidTestImplementation "com.android.support.test:runner:$rootProject.androidSupportTestRunnerVersion"
-    androidTestImplementation "com.android.support.test:rules:$rootProject.androidSupportTestRulesVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.androidSupportEspressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.androidSupportEspressoVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.androidTestRunnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.androidTestRulesVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.androidEspressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.androidEspressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.androidEspressoVersion"
     androidTestImplementation "com.android.support:support-annotations:$rootProject.androidSupportAnnotationsVersion"
 
     // Resolve conflicts between prod and test

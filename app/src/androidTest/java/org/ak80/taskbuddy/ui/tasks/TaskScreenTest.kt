@@ -8,10 +8,14 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
-import org.ak80.taskbuddy.*
+import org.ak80.taskbuddy.AcceptanceTest
+import org.ak80.taskbuddy.R
+import org.ak80.taskbuddy.aTask
 import org.ak80.taskbuddy.core.model.Task
 import org.ak80.taskbuddy.di.TaskBuddyApplication
+import org.ak80.taskbuddy.listOf
 import org.ak80.taskbuddy.persistence.TaskRepository
+import org.ak80.taskbuddy.ui.utils.refreshView
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.core.Is
@@ -33,7 +37,7 @@ class TaskScreenTest : AcceptanceTest<TasksActivity>(TasksActivity::class.java) 
     @Test
     fun start_showsTasksInListView() {
         // Given
-        taskRepository.deleteAll()
+        taskRepository.clearPassed()
         val taskList = listOf(2) { aTask() }
         taskRepository.addTask(taskList[0])
         taskRepository.addTask(taskList[1])

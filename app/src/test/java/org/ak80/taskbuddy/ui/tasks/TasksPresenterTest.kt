@@ -54,7 +54,7 @@ class TasksPresenterTest {
 
         // Then
 
-        assertThat(task.passed).isTrue()
+        assertThat(task.completed).isTrue()
     }
 
     @Test
@@ -82,7 +82,7 @@ class TasksPresenterTest {
 
         // Then
 
-        assertThat(task.passed).isFalse()
+        assertThat(task.completed).isFalse()
     }
 
     @Test
@@ -110,7 +110,7 @@ class TasksPresenterTest {
         presenter.clearTasks()
 
         // Then
-        verify { taskRepository.deleteAll() }
+        verify { taskRepository.clearPassed() }
     }
 
     @Test

@@ -10,13 +10,14 @@ import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.ui.info.InfoActivity
+import org.ak80.taskbuddy.ui.missions.MISSION_ID
 import org.ak80.taskbuddy.ui.missions.MissionsActivity
-import org.ak80.taskbuddy.ui.util.ActivityUtils
+import org.ak80.taskbuddy.ui.util.ActivityUtils.addFragment
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
+//FIXME back navigation wie in addeditmission, mit tests
 /**
  * View for showing the main screen with the list of [org.ak80.taskbuddy.core.model.Task]s
  */
@@ -35,19 +36,26 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
 
         setupToolbar()
         setupNavDrawer()
-        setupFragment()
 
+        val missionId = getMissionId(savedInstanceState)
+        setupFragment(missionId)
+    }
+
+    private fun getMissionId(savedInstanceState: Bundle?): Int {
+        var missionId = intent.getIntExtra(MISSION_ID, 0)
         if (savedInstanceState != null) {
-            info("${this.localClassName} instance state was saved")
+            missionId = savedInstanceState.getInt(MISSION_ID)
         }
+        return missionId
     }
 
     private fun setupToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val ab = supportActionBar
-        ab!!.setHomeAsUpIndicator(R.drawable.ic_menu)
-        ab.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.run {
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun setupNavDrawer() {
@@ -65,9 +73,6 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
                 R.id.navigation_menu_item_missions -> {
                     startActivity(intentFor<MissionsActivity>())
                 }
-                R.id.navigation_menu_item_tasks -> {
-                    // do nothing, we're already on that screen
-                }
                 R.id.navigation_menu_item_info -> {
                     startActivity(intentFor<InfoActivity>())
                 }
@@ -81,8 +86,9 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun setupFragment() {
-        ActivityUtils.loadFragment(R.id.contentFrame, tasksFragmentProvider, supportFragmentManager)
+    private fun setupFragment(missionId: Int) {
+        val bundle = Bundle().apply { putInt(MISSION_ID, missionId) }
+        addFragment(tasksFragmentProvider.get(), R.id.contentFrame, bundle)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -100,6 +106,7 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
+        // TODO save mission id !
         super.onSaveInstanceState(outState)
     }
 
