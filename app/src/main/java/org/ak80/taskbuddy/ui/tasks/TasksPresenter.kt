@@ -16,7 +16,7 @@ class TasksPresenter @Inject constructor(private var taskRepository: TaskGateway
 
     private var tasksView: TasksContract.View? = null
 
-    private var missionId: Int = -1
+    private var missionId: Long = -1
 
     override fun takeView(view: TasksContract.View) {
         tasksView = view
@@ -27,7 +27,7 @@ class TasksPresenter @Inject constructor(private var taskRepository: TaskGateway
     }
 
 
-    override fun showTasks(missionId: Int) {
+    override fun showTasks(missionId: Long) {
         this.missionId = missionId
         taskRepository.loadTasks(missionId, this)
 

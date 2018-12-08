@@ -35,7 +35,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
 
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
 
-    private var missionId = -1
+    private var missionId = -1L
 
     private var taskListener: TasksListener = object : TasksListener {
 
@@ -66,7 +66,7 @@ class TasksFragment @Inject constructor() : DaggerFragment(), TasksContract.View
         super.onResume()
         presenter.takeView(this)
 
-        arguments?.getInt(MISSION_ID)?.let { missionId = it }
+        arguments?.getLong(MISSION_ID)?.let { missionId = it }
         presenter.showTasks(missionId)
     }
 

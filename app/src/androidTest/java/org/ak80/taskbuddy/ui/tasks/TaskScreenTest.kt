@@ -11,10 +11,10 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import org.ak80.taskbuddy.AcceptanceTest
 import org.ak80.taskbuddy.R
 import org.ak80.taskbuddy.aTask
+import org.ak80.taskbuddy.core.gateway.TaskGateway
 import org.ak80.taskbuddy.core.model.Task
 import org.ak80.taskbuddy.di.TaskBuddyApplication
 import org.ak80.taskbuddy.listOf
-import org.ak80.taskbuddy.persistence.TaskRepository
 import org.ak80.taskbuddy.ui.utils.refreshView
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
@@ -24,8 +24,8 @@ import org.junit.Test
 
 class TaskScreenTest : AcceptanceTest<TasksActivity>(TasksActivity::class.java) {
 
-    var taskRepository: TaskRepository =
-        (InstrumentationRegistry.getTargetContext().applicationContext as TaskBuddyApplication).getTasksRepository()
+    var taskRepository: TaskGateway =
+        (InstrumentationRegistry.getTargetContext().applicationContext as TaskBuddyApplication).getMissionRepository()
 
 
     @Test
@@ -37,10 +37,10 @@ class TaskScreenTest : AcceptanceTest<TasksActivity>(TasksActivity::class.java) 
     @Test
     fun start_showsTasksInListView() {
         // Given
-        taskRepository.clearPassed()
+        taskRepository.clearPassed(1L)
         val taskList = listOf(2) { aTask() }
-        taskRepository.addTask(taskList[0])
-        taskRepository.addTask(taskList[1])
+        taskRepository.saveTask(taskList[0])
+        taskRepository.saveTask(taskList[1])
 
         // When
         refreshView(R.id.refresh_layout_tasks)

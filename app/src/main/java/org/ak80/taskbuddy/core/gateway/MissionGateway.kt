@@ -9,7 +9,7 @@ interface MissionGateway {
 
     fun loadMissions(callback: (List<Mission>) -> Unit)
 
-    fun addMission(mission: Mission)
+    fun saveMission(mission: Mission)
 
     fun clearPassed()
 

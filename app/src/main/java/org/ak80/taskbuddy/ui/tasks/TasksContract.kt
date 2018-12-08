@@ -25,7 +25,7 @@ interface TasksContract {
 
     interface Presenter : BasePresenter<View> {
 
-        fun showTasks(missionId: Int)
+        fun showTasks(missionId: Long)
 
         fun completeTask(completedTask: Task)
 

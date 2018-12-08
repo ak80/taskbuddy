@@ -41,10 +41,10 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
         setupFragment(missionId)
     }
 
-    private fun getMissionId(savedInstanceState: Bundle?): Int {
-        var missionId = intent.getIntExtra(MISSION_ID, 0)
+    private fun getMissionId(savedInstanceState: Bundle?): Long {
+        var missionId = intent.getLongExtra(MISSION_ID, 0L)
         if (savedInstanceState != null) {
-            missionId = savedInstanceState.getInt(MISSION_ID)
+            missionId = savedInstanceState.getLong(MISSION_ID)
         }
         return missionId
     }
@@ -86,8 +86,8 @@ class TasksActivity : DaggerAppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun setupFragment(missionId: Int) {
-        val bundle = Bundle().apply { putInt(MISSION_ID, missionId) }
+    private fun setupFragment(missionId: Long) {
+        val bundle = Bundle().apply { putLong(MISSION_ID, missionId) }
         addFragment(tasksFragmentProvider.get(), R.id.contentFrame, bundle)
     }
 

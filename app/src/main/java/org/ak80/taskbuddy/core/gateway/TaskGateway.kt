@@ -7,9 +7,9 @@ import org.ak80.taskbuddy.core.model.Task
  */
 interface TaskGateway {
 
-    fun loadTasks(missionId: Int, callback: TaskGatewayCallback)
+    fun loadTasks(missionId: Long, callback: TaskGatewayCallback)
 
-    fun clearPassed(missionId: Int)
+    fun clearPassed(missionId: Long)
 
     fun saveTask(completedTask: Task)
 
