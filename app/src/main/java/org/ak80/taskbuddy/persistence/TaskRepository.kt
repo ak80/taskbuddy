@@ -15,17 +15,17 @@ import javax.inject.Singleton
 // TODO inject db directly
 class TaskRepository @Inject constructor(val context: Context) : TaskGateway {
 
-    override fun loadTasks(missionId: Int, callback: TaskGatewayCallback) {
+    override fun loadTasks(missionId: Long, callback: TaskGatewayCallback) {
         callback.callbackTasks(getTasks(missionId))
     }
 
-    fun getTasks(missionId: Int): List<Task> {
+    fun getTasks(missionId: Long): List<Task> {
         val tasks = context.database.use {
             select("Task").whereArgs("missionId = {missionId}", "missionId" to missionId)
                 .exec {
                     parseList(object : MapRowParser<Task> {
                         override fun parseRow(columns: Map<String, Any?>): Task {
-                            val id = columns.getValue("id").toString().toInt()
+                            val id = columns.getValue("id").toString().toLong()
                             val title = columns.getValue("title").toString()
                             val passed = columns.getValue("completed").toString().toInt() == TRUE
                             return Task(id, title, passed)
@@ -49,7 +49,7 @@ class TaskRepository @Inject constructor(val context: Context) : TaskGateway {
         }
     }
 
-    override fun clearPassed(missionId: Int) {
+    override fun clearPassed(missionId: Long) {
         context.database.use {
             update("Task", "completed" to FALSE)
                 .whereArgs("missionId = {missionId}", "missionId" to missionId)

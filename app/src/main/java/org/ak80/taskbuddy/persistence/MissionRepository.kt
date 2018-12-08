@@ -41,16 +41,16 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
         }
     }
 
-    private fun insertTask(missionId: Int, title: String) {
+    private fun insertTask(missionId: Long, title: String) {
         context.database.use {
             insert("Task", "title" to title, "completed" to FALSE, "missionId" to missionId)
         }
     }
 
-    private fun Cursor.getMissionId(): Int {
+    private fun Cursor.getMissionId(): Long {
         return parseSingle(object : MapRowParser<Mission> {
             override fun parseRow(columns: Map<String, Any?>): Mission {
-                val id = columns.getValue("id").toString().toInt()
+                val id = columns.getValue("id").toString().toLong()
                 val title = columns.getValue("title").toString()
                 return Mission(id, title, listOf())
             }
@@ -64,7 +64,7 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
                     .exec {
                         parseList(object : MapRowParser<Mission> {
                             override fun parseRow(columns: Map<String, Any?>): Mission {
-                                val id = columns.getValue("id").toString().toInt()
+                                val id = columns.getValue("id").toString().toLong()
                                 val title = columns.getValue("title").toString()
                                 return Mission(id, title, TaskRepository(context).getTasks(id))
                             }
@@ -75,12 +75,8 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
         callback.invoke(missions)
     }
 
-    private fun getTasks(missionId: Int): Any {
+    override fun saveMission(mission: Mission) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun addMission(mission: Mission) {
-        //TODO
     }
 
     override fun clearPassed() {

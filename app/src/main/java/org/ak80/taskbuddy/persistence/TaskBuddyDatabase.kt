@@ -21,7 +21,14 @@ class TaskBuddyDatabase(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "TaskDataba
         }
     }
 
+    // TODO during dev
+    init {
+        ctx.deleteDatabase("TaskDatabase")
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
+
+
         db.createTable(
             "Mission", true,
             "id" to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
