@@ -68,7 +68,7 @@ class MissionsPresenterTest {
         presenter.addNewMission()
 
         // Then
-        verify { view.showAddEditMission() }
+        verify { view.showAddMission() }
     }
 
     @Test

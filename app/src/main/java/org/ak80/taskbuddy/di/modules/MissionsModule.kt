@@ -24,6 +24,6 @@ abstract class MissionsModule {
     internal abstract fun missionsPresenter(presenter: MissionsPresenter): MissionsContract.Presenter
 
     @Binds
-    internal abstract fun missionRepository(missionRepository: MissionRepository): MissionGateway
+    internal abstract fun missionGateway(missionRepository: MissionRepository): MissionGateway
 
 }

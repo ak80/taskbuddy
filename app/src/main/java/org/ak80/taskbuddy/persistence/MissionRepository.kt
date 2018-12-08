@@ -3,14 +3,17 @@ package org.ak80.taskbuddy.persistence
 import android.content.Context
 import android.database.Cursor
 import org.ak80.taskbuddy.core.gateway.MissionGateway
+import org.ak80.taskbuddy.core.gateway.TaskGateway
+import org.ak80.taskbuddy.core.gateway.TaskGatewayCallback
 import org.ak80.taskbuddy.core.model.Mission
+import org.ak80.taskbuddy.core.model.Task
 import org.jetbrains.anko.db.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 // TODO inject db directly
-class MissionRepository @Inject constructor(val context: Context) : MissionGateway {
+class MissionRepository @Inject constructor(val context: Context) : MissionGateway, TaskGateway {
 
     //TODO in taskbuddydatabase machen!
     init {
@@ -38,6 +41,12 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
             }
 
             insert("Mission", "title" to "Meditation")
+            select("Mission", "id", "title").whereArgs("title = {title}", "title" to "Meditation").exec {
+                val missionId = getMissionId()
+                insertTask(missionId, "Sitzen (60:00)")
+                insertTask(missionId, "Gehen (30:00)")
+                insertTask(missionId, "Metta (30:00)")
+            }
         }
     }
 
@@ -66,7 +75,7 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
                             override fun parseRow(columns: Map<String, Any?>): Mission {
                                 val id = columns.getValue("id").toString().toLong()
                                 val title = columns.getValue("title").toString()
-                                return Mission(id, title, TaskRepository(context).getTasks(id))
+                                return Mission(id, title, getTasks(id))
                             }
 
                         })
@@ -82,6 +91,48 @@ class MissionRepository @Inject constructor(val context: Context) : MissionGatew
     override fun clearPassed() {
         context.database.use {
             update("Task", "completed" to FALSE)
+                .exec()
+        }
+    }
+
+    override fun loadTasks(missionId: Long, callback: TaskGatewayCallback) {
+        callback.callbackTasks(getTasks(missionId))
+    }
+
+    fun getTasks(missionId: Long): List<Task> {
+        val tasks = context.database.use {
+            select("Task").whereArgs("missionId = {missionId}", "missionId" to missionId)
+                .exec {
+                    parseList(object : MapRowParser<Task> {
+                        override fun parseRow(columns: Map<String, Any?>): Task {
+                            val id = columns.getValue("id").toString().toLong()
+                            val title = columns.getValue("title").toString()
+                            val passed = columns.getValue("completed").toString().toInt() == TRUE
+                            return Task(id, title, passed)
+                        }
+
+                    })
+                }
+        }
+        return tasks
+    }
+
+
+    override fun saveTask(task: Task) {
+        // todo Insert or Update?
+        val completed: Int = if (task.completed) TRUE else FALSE
+
+        context.database.use {
+            update("Task", "completed" to completed)
+                .whereArgs("id = {id}", "id" to task.id)
+                .exec()
+        }
+    }
+
+    override fun clearPassed(missionId: Long) {
+        context.database.use {
+            update("Task", "completed" to FALSE)
+                .whereArgs("missionId = {missionId}", "missionId" to missionId)
                 .exec()
         }
     }

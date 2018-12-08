@@ -15,6 +15,7 @@ interface TaskGateway {
 
 }
 
+//FIXMe oder wieder alten mechanismus
 interface TaskGatewayCallback {
 
 

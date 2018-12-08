@@ -26,8 +26,10 @@ fun <T> listOf(count: Int, builder: () -> T): List<T> {
 
 fun anInt() = count++
 
+fun aLong() = count++.toLong()
+
 fun aTitle() = "Title${anInt()}"
 
-fun aMission(title: String = aTitle(), list: List<Task> = listOf()) = Mission(title, list)
+fun aMission(id: Long = aLong(), title: String = aTitle(), list: List<Task> = listOf()) = Mission(id, title, list)
 
-fun aTask(title: String = aTitle(), passed: Boolean = false) = Task(title, passed)
+fun aTask(id: Long = aLong(), title: String = aTitle(), passed: Boolean = false) = Task(id, title, passed)

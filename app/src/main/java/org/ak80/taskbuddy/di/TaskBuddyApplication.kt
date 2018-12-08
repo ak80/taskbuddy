@@ -4,7 +4,6 @@ import android.support.annotation.VisibleForTesting
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import org.ak80.taskbuddy.persistence.MissionRepository
-import org.ak80.taskbuddy.persistence.TaskRepository
 import javax.inject.Inject
 
 
@@ -12,8 +11,6 @@ class TaskBuddyApplication : DaggerApplication() {
 
     @Inject
     internal lateinit var missionRepository: MissionRepository
-    @Inject
-    internal lateinit var taskRepository: TaskRepository
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder().application(this).build()
@@ -22,11 +19,6 @@ class TaskBuddyApplication : DaggerApplication() {
     @VisibleForTesting
     fun getMissionRepository(): MissionRepository {
         return missionRepository
-    }
-
-    @VisibleForTesting
-    fun getTasksRepository(): TaskRepository {
-        return taskRepository
     }
 
 }
